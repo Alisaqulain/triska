@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@layer base {
+  body {
+    @apply bg-cream-50 text-gray-800 antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  /* Performance optimizations */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .gradient-soft {
+    background: linear-gradient(135deg, #fefdfb 0%, #faf9f6 50%, #fef9e7 100%);
+  }
+  
+  .gradient-gold {
+    background: linear-gradient(135deg, #fef3cf 0%, #fde79f 50%, #fbcf3f 100%);
+  }
+
+  /* 3D Perspective Utilities */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .perspective-2000 {
+    perspective: 2000px;
+  }
+
+  .transform-3d {
+    transform-style: preserve-3d;
+  }
+
+  /* Enhanced Shadow Utilities */
+  .shadow-3d {
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .shadow-3d-hover {
+    box-shadow: 
+      0 30px 80px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
