@@ -1,13 +1,15 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 import Link from 'next/link'
+import { getProducts } from '@/lib/storage'
 
-// Sample product data
-const featuredProducts = [
+// Fallback product data
+const defaultProducts = [
   {
     id: 1,
     name: 'Elegant Silk Saree',
@@ -114,6 +116,15 @@ const categories = [
 ]
 
 export default function Home() {
+  const [featuredProducts, setFeaturedProducts] = useState(defaultProducts.slice(0, 8))
+
+  useEffect(() => {
+    const products = getProducts()
+    if (products.length > 0) {
+      setFeaturedProducts(products.slice(0, 8))
+    }
+  }, [])
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

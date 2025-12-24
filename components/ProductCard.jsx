@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useCart } from '@/contexts/CartContext'
 
 export default function ProductCard({ product }) {
   const [isHovered, setIsHovered] = useState(false)
   const [isWishlisted, setIsWishlisted] = useState(false)
+  const { addToCart } = useCart()
 
   const {
     id,
@@ -160,6 +162,7 @@ export default function ProductCard({ product }) {
         {/* Action Buttons */}
         <div className="flex space-x-2">
           <motion.button
+            onClick={() => addToCart(product)}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="flex-1 bg-gradient-to-r from-gold-400 to-gold-500 text-white py-2.5 rounded-lg font-medium shadow-soft hover:shadow-elegant transition-all duration-200"

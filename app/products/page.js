@@ -7,9 +7,10 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 import FilterSidebar from '@/components/FilterSidebar'
+import { getProducts } from '@/lib/storage'
 
-// Sample product data
-const allProducts = [
+// Fallback product data
+const defaultProducts = [
   {
     id: 1,
     name: 'Elegant Silk Saree',
@@ -158,6 +159,7 @@ const allProducts = [
 
 function ProductsContent() {
   const searchParams = useSearchParams()
+  const [allProducts, setAllProducts] = useState(defaultProducts)
   const [filters, setFilters] = useState({
     category: [],
     ageGroup: [],
@@ -167,6 +169,15 @@ function ProductsContent() {
   })
   const [filteredProducts, setFilteredProducts] = useState(allProducts)
   const [sortBy, setSortBy] = useState('featured')
+
+  useEffect(() => {
+    // Load products from storage
+    const products = getProducts()
+    if (products.length > 0) {
+      setAllProducts(products)
+      setFilteredProducts(products)
+    }
+  }, [])
 
   useEffect(() => {
     // Apply category filter from URL

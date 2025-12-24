@@ -6,10 +6,30 @@ import Link from 'next/link'
 
 export default function Footer() {
   const footerLinks = {
-    shop: ['Saree', 'Suit', 'Kurti', 'Accessories'],
-    help: ['Contact Us', 'Shipping Info', 'Returns', 'Size Guide'],
-    about: ['Our Story', 'Careers', 'Sustainability', 'Press'],
-    connect: ['Instagram', 'Facebook', 'Twitter', 'Pinterest'],
+    shop: [
+      { name: 'Saree', href: '/products?category=saree' },
+      { name: 'Suit', href: '/products?category=suit' },
+      { name: 'Kurti', href: '/products?category=kurti' },
+      { name: 'Accessories', href: '/products?category=accessories' },
+    ],
+    help: [
+      { name: 'Contact Us', href: '/contact' },
+      { name: 'Help Center', href: '/help' },
+      { name: 'Track Order', href: '/track-order' },
+      { name: 'Returns', href: '/help#returns' },
+    ],
+    about: [
+      { name: 'Our Story', href: '/about' },
+      { name: 'Careers', href: '/careers' },
+      { name: 'Privacy Policy', href: '/privacy' },
+      { name: 'Terms', href: '/terms' },
+    ],
+    connect: [
+      { name: 'Instagram', href: '#' },
+      { name: 'Facebook', href: '#' },
+      { name: 'Twitter', href: '#' },
+      { name: 'Pinterest', href: '#' },
+    ],
   }
 
   return (
@@ -78,12 +98,12 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={link}>
+                  <li key={link.name || link}>
                     <Link
-                      href="#"
+                      href={link.href || '#'}
                       className="text-gray-600 hover:text-gold-500 text-sm transition-colors duration-200"
                     >
-                      {link}
+                      {link.name || link}
                     </Link>
                   </li>
                 ))}
@@ -119,4 +139,5 @@ export default function Footer() {
     </footer>
   )
 }
+
 
