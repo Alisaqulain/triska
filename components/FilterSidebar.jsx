@@ -3,13 +3,14 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function FilterSidebar({ onFilterChange }) {
+export default function FilterSidebar({ onFilterChange, defaultCategory }) {
   const [openSections, setOpenSections] = useState({
     category: true,
     ageGroup: true,
     price: true,
     fabric: false,
     occasion: false,
+    sareeType: false,
   })
 
   const [filters, setFilters] = useState({
@@ -18,6 +19,7 @@ export default function FilterSidebar({ onFilterChange }) {
     priceRange: [0, 50000],
     fabric: [],
     occasion: [],
+    sareeType: [],
   })
 
   const categories = ['Saree', 'Suit', 'Kurti', 'Accessories']
@@ -268,9 +270,40 @@ export default function FilterSidebar({ onFilterChange }) {
           ))}
         </div>
       </FilterSection>
+
+      {/* Saree Type Filter (for Banarasi Saree) */}
+      {(defaultCategory === 'Banarasi' || filters.category?.includes('Banarasi')) && (
+        <FilterSection title="Saree Type" sectionKey="sareeType">
+          <div className="space-y-2">
+            {['Katan', 'Organza', 'Georgette', 'Pure Silk', 'Tissue'].map((type) => (
+              <label
+                key={type}
+                className="flex items-center space-x-3 cursor-pointer group"
+              >
+                <input
+                  type="checkbox"
+                  checked={filters.sareeType?.includes(type) || false}
+                  onChange={() => {
+                    const newTypes = filters.sareeType?.includes(type)
+                      ? filters.sareeType.filter(t => t !== type)
+                      : [...(filters.sareeType || []), type]
+                    setFilters(prev => ({ ...prev, sareeType: newTypes }))
+                    onFilterChange?.({ ...filters, sareeType: newTypes })
+                  }}
+                  className="w-5 h-5 rounded border-beige-300 text-gold-500 focus:ring-gold-400 focus:ring-2 cursor-pointer"
+                />
+                <span className="text-gray-700 group-hover:text-gold-600 transition-colors">
+                  {type}
+                </span>
+              </label>
+            ))}
+          </div>
+        </FilterSection>
+      )}
     </aside>
   )
 }
+
 
 
 

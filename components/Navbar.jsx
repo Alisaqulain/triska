@@ -14,6 +14,7 @@ export default function Navbar() {
   const { user, logout } = useUser()
 
   const categories = ['Saree', 'Suit', 'Kurti', 'Accessories']
+  const [banarasiOpen, setBanarasiOpen] = useState(false)
 
   return (
     <motion.nav
@@ -53,6 +54,73 @@ export default function Navbar() {
                   {category}
                 </Link>
               ))}
+              
+              {/* Banarasi Dropdown */}
+              <div
+                className="relative"
+                onMouseEnter={() => setBanarasiOpen(true)}
+                onMouseLeave={() => setBanarasiOpen(false)}
+              >
+                <Link
+                  href="/banarasi"
+                  className="text-gray-700 hover:text-gold-500 transition-colors duration-200 font-medium flex items-center"
+                >
+                  Banarasi
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </Link>
+                
+                {banarasiOpen && (
+                  <>
+                    {/* Invisible bridge to prevent gap */}
+                    <div className="absolute top-full left-0 w-full h-1" style={{ pointerEvents: 'auto' }} />
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      onMouseEnter={() => setBanarasiOpen(true)}
+                      onMouseLeave={() => setBanarasiOpen(false)}
+                      className="absolute top-full left-0 pt-1 w-64 z-50"
+                    >
+                      <div className="bg-white rounded-2xl shadow-elegant p-4">
+                      <div className="space-y-2">
+                      <Link
+                        href="/banarasi/saree"
+                        className="block px-4 py-2 rounded-lg hover:bg-cream-50 text-gray-700 hover:text-gold-600 transition-colors"
+                      >
+                        Banarasi Saree
+                      </Link>
+                      <Link
+                        href="/banarasi/suit"
+                        className="block px-4 py-2 rounded-lg hover:bg-cream-50 text-gray-700 hover:text-gold-600 transition-colors"
+                      >
+                        Banarasi Suit
+                      </Link>
+                      <Link
+                        href="/banarasi/dupatta"
+                        className="block px-4 py-2 rounded-lg hover:bg-cream-50 text-gray-700 hover:text-gold-600 transition-colors"
+                      >
+                        Banarasi Dupatta
+                      </Link>
+                      <Link
+                        href="/banarasi/lehenga"
+                        className="block px-4 py-2 rounded-lg hover:bg-cream-50 text-gray-700 hover:text-gold-600 transition-colors"
+                      >
+                        Banarasi Lehenga
+                      </Link>
+                      <Link
+                        href="/banarasi/other"
+                        className="block px-4 py-2 rounded-lg hover:bg-cream-50 text-gray-700 hover:text-gold-600 transition-colors"
+                      >
+                        Other Banarasi Products
+                      </Link>
+                      </div>
+                      </div>
+                    </motion.div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 

@@ -14,6 +14,7 @@ export default function AdminNavbar() {
   const navItems = [
     { href: '/admin/dashboard', label: 'Dashboard', icon: '📊' },
     { href: '/admin/products', label: 'Products', icon: '👗' },
+    { href: '/admin/banarasi', label: 'Banarasi', icon: '✨' },
     { href: '/admin/orders', label: 'Orders', icon: '📦' },
     { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
   ]
@@ -72,5 +73,6 @@ export default function AdminNavbar() {
     </nav>
   )
 }
+
 
 
