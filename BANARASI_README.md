@@ -237,3 +237,5 @@ The Banarasi category has been fully integrated into the Trisaka e-commerce plat
 5. Add inventory tracking
 6. Add analytics for Banarasi products
 
+
+

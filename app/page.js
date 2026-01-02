@@ -5,6 +5,9 @@ import { motion } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
+import MobileBottomNav from '@/components/MobileBottomNav'
+import WhatsAppButton from '@/components/WhatsAppButton'
+import VideoCallButton from '@/components/VideoCallButton'
 import Link from 'next/link'
 import { getProducts } from '@/lib/storage'
 
@@ -536,6 +539,9 @@ export default function Home() {
       </main>
 
       <Footer />
+      <MobileBottomNav />
+      <WhatsAppButton />
+      <VideoCallButton />
     </div>
   )
 }

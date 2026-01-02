@@ -11,6 +11,9 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
     fabric: false,
     occasion: false,
     sareeType: false,
+    weave: false,
+    color: false,
+    shipping: false,
   })
 
   const [filters, setFilters] = useState({
@@ -20,12 +23,18 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
     fabric: [],
     occasion: [],
     sareeType: [],
+    weave: [],
+    color: [],
+    shipping: [],
   })
 
   const categories = ['Saree', 'Suit', 'Kurti', 'Accessories']
   const ageGroups = ['18-25', '26-35', '36-45', '45+']
-  const fabrics = ['Silk', 'Cotton', 'Georgette', 'Chiffon', 'Linen', 'Velvet']
-  const occasions = ['Casual', 'Wedding', 'Festive', 'Party', 'Office']
+  const fabrics = ['Silk', 'Katan', 'Organza', 'Tissue', 'Pure Silk', 'Georgette', 'Cotton', 'Chiffon', 'Linen', 'Velvet']
+  const occasions = ['Casual', 'Wedding', 'Festive', 'Party', 'Office', 'Traditional', 'Bridal']
+  const weaves = ['Kadhwa', 'Cutwork', 'Jangla', 'Butidar', 'Tanchoi', 'Brocade']
+  const colors = ['Red', 'Maroon', 'Gold', 'Green', 'Blue', 'Pink', 'Purple', 'Black', 'White', 'Beige']
+  const shippingOptions = ['Ready to Ship', 'Custom Order']
 
   const toggleSection = (section) => {
     setOpenSections((prev) => ({
@@ -86,6 +95,39 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
     })
   }
 
+  const handleWeaveToggle = (weave) => {
+    setFilters((prev) => {
+      const newWeaves = prev.weave.includes(weave)
+        ? prev.weave.filter((w) => w !== weave)
+        : [...prev.weave, weave]
+      const newFilters = { ...prev, weave: newWeaves }
+      onFilterChange?.(newFilters)
+      return newFilters
+    })
+  }
+
+  const handleColorToggle = (color) => {
+    setFilters((prev) => {
+      const newColors = prev.color.includes(color)
+        ? prev.color.filter((c) => c !== color)
+        : [...prev.color, color]
+      const newFilters = { ...prev, color: newColors }
+      onFilterChange?.(newFilters)
+      return newFilters
+    })
+  }
+
+  const handleShippingToggle = (option) => {
+    setFilters((prev) => {
+      const newShipping = prev.shipping.includes(option)
+        ? prev.shipping.filter((s) => s !== option)
+        : [...prev.shipping, option]
+      const newFilters = { ...prev, shipping: newShipping }
+      onFilterChange?.(newFilters)
+      return newFilters
+    })
+  }
+
   const clearAllFilters = () => {
     const clearedFilters = {
       category: [],
@@ -93,6 +135,10 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
       priceRange: [0, 50000],
       fabric: [],
       occasion: [],
+      sareeType: [],
+      weave: [],
+      color: [],
+      shipping: [],
     }
     setFilters(clearedFilters)
     onFilterChange?.(clearedFilters)
@@ -143,7 +189,7 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
         <h2 className="font-serif text-xl font-bold text-gray-800">Filters</h2>
         <button
           onClick={clearAllFilters}
-          className="text-sm text-gold-600 hover:text-gold-700 font-medium"
+          className="text-sm text-maroon-600 hover:text-maroon-700 font-medium"
         >
           Clear All
         </button>
@@ -161,9 +207,9 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
                 type="checkbox"
                 checked={filters.category.includes(category)}
                 onChange={() => handleCategoryToggle(category)}
-                className="w-5 h-5 rounded border-beige-300 text-gold-500 focus:ring-gold-400 focus:ring-2 cursor-pointer"
+                className="w-5 h-5 rounded border-beige-300 text-maroon-600 focus:ring-maroon-400 focus:ring-2 cursor-pointer"
               />
-              <span className="text-gray-700 group-hover:text-gold-600 transition-colors">
+              <span className="text-gray-700 group-hover:text-maroon-600 transition-colors">
                 {category}
               </span>
             </label>
@@ -183,9 +229,9 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
                 type="checkbox"
                 checked={filters.ageGroup.includes(ageGroup)}
                 onChange={() => handleAgeGroupToggle(ageGroup)}
-                className="w-5 h-5 rounded border-beige-300 text-gold-500 focus:ring-gold-400 focus:ring-2 cursor-pointer"
+                className="w-5 h-5 rounded border-beige-300 text-maroon-600 focus:ring-maroon-400 focus:ring-2 cursor-pointer"
               />
-              <span className="text-gray-700 group-hover:text-gold-600 transition-colors">
+              <span className="text-gray-700 group-hover:text-maroon-600 transition-colors">
                 {ageGroup}
               </span>
             </label>
@@ -210,7 +256,7 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
               onChange={(e) =>
                 handlePriceChange([Number(e.target.value), filters.priceRange[1]])
               }
-              className="w-full h-2 bg-beige-200 rounded-lg appearance-none cursor-pointer accent-gold-500"
+              className="w-full h-2 bg-beige-200 rounded-lg appearance-none cursor-pointer accent-maroon-600"
             />
             <input
               type="range"
@@ -239,9 +285,9 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
                 type="checkbox"
                 checked={filters.fabric.includes(fabric)}
                 onChange={() => handleFabricToggle(fabric)}
-                className="w-5 h-5 rounded border-beige-300 text-gold-500 focus:ring-gold-400 focus:ring-2 cursor-pointer"
+                className="w-5 h-5 rounded border-beige-300 text-maroon-600 focus:ring-maroon-400 focus:ring-2 cursor-pointer"
               />
-              <span className="text-gray-700 group-hover:text-gold-600 transition-colors">
+              <span className="text-gray-700 group-hover:text-maroon-600 transition-colors">
                 {fabric}
               </span>
             </label>
@@ -261,9 +307,9 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
                 type="checkbox"
                 checked={filters.occasion.includes(occasion)}
                 onChange={() => handleOccasionToggle(occasion)}
-                className="w-5 h-5 rounded border-beige-300 text-gold-500 focus:ring-gold-400 focus:ring-2 cursor-pointer"
+                className="w-5 h-5 rounded border-beige-300 text-maroon-600 focus:ring-maroon-400 focus:ring-2 cursor-pointer"
               />
-              <span className="text-gray-700 group-hover:text-gold-600 transition-colors">
+              <span className="text-gray-700 group-hover:text-maroon-600 transition-colors">
                 {occasion}
               </span>
             </label>
@@ -290,9 +336,9 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
                     setFilters(prev => ({ ...prev, sareeType: newTypes }))
                     onFilterChange?.({ ...filters, sareeType: newTypes })
                   }}
-                  className="w-5 h-5 rounded border-beige-300 text-gold-500 focus:ring-gold-400 focus:ring-2 cursor-pointer"
+                  className="w-5 h-5 rounded border-beige-300 text-maroon-600 focus:ring-maroon-400 focus:ring-2 cursor-pointer"
                 />
-                <span className="text-gray-700 group-hover:text-gold-600 transition-colors">
+                <span className="text-gray-700 group-hover:text-maroon-600 transition-colors">
                   {type}
                 </span>
               </label>
@@ -300,6 +346,74 @@ export default function FilterSidebar({ onFilterChange, defaultCategory }) {
           </div>
         </FilterSection>
       )}
+
+      {/* Weave Filter (for Banarasi) */}
+      {(defaultCategory === 'Banarasi' || filters.category?.includes('Banarasi')) && (
+        <FilterSection title="Weave" sectionKey="weave">
+          <div className="space-y-2">
+            {weaves.map((weave) => (
+              <label
+                key={weave}
+                className="flex items-center space-x-3 cursor-pointer group"
+              >
+                <input
+                  type="checkbox"
+                  checked={filters.weave.includes(weave)}
+                  onChange={() => handleWeaveToggle(weave)}
+                  className="w-5 h-5 rounded border-beige-300 text-maroon-600 focus:ring-maroon-400 focus:ring-2 cursor-pointer"
+                />
+                <span className="text-gray-700 group-hover:text-maroon-600 transition-colors">
+                  {weave}
+                </span>
+              </label>
+            ))}
+          </div>
+        </FilterSection>
+      )}
+
+      {/* Color Filter */}
+      <FilterSection title="Color" sectionKey="color">
+        <div className="space-y-2">
+          {colors.map((color) => (
+            <label
+              key={color}
+              className="flex items-center space-x-3 cursor-pointer group"
+            >
+              <input
+                type="checkbox"
+                checked={filters.color.includes(color)}
+                onChange={() => handleColorToggle(color)}
+                className="w-5 h-5 rounded border-beige-300 text-maroon-600 focus:ring-maroon-400 focus:ring-2 cursor-pointer"
+              />
+              <span className="text-gray-700 group-hover:text-maroon-600 transition-colors">
+                {color}
+              </span>
+            </label>
+          ))}
+        </div>
+      </FilterSection>
+
+      {/* Shipping Filter */}
+      <FilterSection title="Shipping" sectionKey="shipping">
+        <div className="space-y-2">
+          {shippingOptions.map((option) => (
+            <label
+              key={option}
+              className="flex items-center space-x-3 cursor-pointer group"
+            >
+              <input
+                type="checkbox"
+                checked={filters.shipping.includes(option)}
+                onChange={() => handleShippingToggle(option)}
+                className="w-5 h-5 rounded border-beige-300 text-maroon-600 focus:ring-maroon-400 focus:ring-2 cursor-pointer"
+              />
+              <span className="text-gray-700 group-hover:text-maroon-600 transition-colors">
+                {option}
+              </span>
+            </label>
+          ))}
+        </div>
+      </FilterSection>
     </aside>
   )
 }

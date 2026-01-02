@@ -2,15 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap');
 
 @layer base {
   body {
-    @apply bg-cream-50 text-gray-800 antialiased;
-    font-family: 'Inter', sans-serif;
+    @apply bg-ivory-50 text-gray-900 antialiased;
+    font-family: 'Poppins', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', 'Libre Baskerville', serif;
   }
   
   /* Performance optimizations */
@@ -31,11 +31,19 @@
   }
   
   .gradient-soft {
-    background: linear-gradient(135deg, #fefdfb 0%, #faf9f6 50%, #fef9e7 100%);
+    background: linear-gradient(135deg, #fefefc 0%, #faf9f6 50%, #fdf2f2 100%);
   }
   
   .gradient-gold {
-    background: linear-gradient(135deg, #fef3cf 0%, #fde79f 50%, #fbcf3f 100%);
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbbf24 100%);
+  }
+
+  .gradient-maroon {
+    background: linear-gradient(135deg, #8b1a1a 0%, #6b1414 50%, #4c0f0f 100%);
+  }
+
+  .gradient-royal {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 50%, #991b1b 100%);
   }
 
   /* 3D Perspective Utilities */

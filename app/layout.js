@@ -1,19 +1,28 @@
 import './globals.css'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Poppins, Playfair_Display, Libre_Baskerville } from 'next/font/google'
 import { AdminProvider } from '@/contexts/AdminContext'
 import { CartProvider } from '@/contexts/CartContext'
 import { UserProvider } from '@/contexts/UserContext'
+import { WishlistProvider } from '@/contexts/WishlistContext'
 import Chatbot from '@/components/Chatbot'
 
-const inter = Inter({ 
+const poppins = Poppins({ 
   subsets: ['latin'],
-  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-poppins',
   display: 'swap',
 })
 
 const playfair = Playfair_Display({ 
   subsets: ['latin'],
   variable: '--font-playfair',
+  display: 'swap',
+})
+
+const libre = Libre_Baskerville({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-libre',
   display: 'swap',
 })
 
@@ -25,13 +34,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className={inter.className}>
+    <html lang="en" className={`${poppins.variable} ${playfair.variable} ${libre.variable}`}>
+      <body className={poppins.className}>
         <AdminProvider>
           <UserProvider>
             <CartProvider>
-              {children}
-              <Chatbot />
+              <WishlistProvider>
+                {children}
+                <Chatbot />
+              </WishlistProvider>
             </CartProvider>
           </UserProvider>
         </AdminProvider>

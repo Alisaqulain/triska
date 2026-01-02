@@ -3,12 +3,16 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useCart } from '@/contexts/CartContext'
+import { useWishlist } from '@/contexts/WishlistContext'
 
 export default function ProductCard({ product }) {
   const [isHovered, setIsHovered] = useState(false)
-  const [isWishlisted, setIsWishlisted] = useState(false)
   const { addToCart } = useCart()
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
+  
+  const isWishlisted = isInWishlist(product.id)
 
   const {
     id,
@@ -77,15 +81,21 @@ export default function ProductCard({ product }) {
 
         {/* Wishlist Button */}
         <motion.button
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => setIsWishlisted(!isWishlisted)}
-          className="absolute top-4 right-4 w-11 h-11 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-soft z-20 hover:bg-white hover:shadow-elegant transition-all duration-300"
+          onClick={() => {
+            if (isWishlisted) {
+              removeFromWishlist(product.id)
+            } else {
+              addToWishlist(product)
+            }
+          }}
+          className="absolute top-4 right-4 w-12 h-12 bg-white/95 backdrop-blur-md rounded-full flex items-center justify-center shadow-elegant z-20 hover:bg-white transition-all duration-300"
           aria-label="Add to wishlist"
         >
           <svg
-            className={`w-5 h-5 transition-colors ${
-              isWishlisted ? 'text-red-500 fill-current' : 'text-gray-600'
+            className={`w-6 h-6 transition-all ${
+              isWishlisted ? 'text-maroon-600 fill-current scale-110' : 'text-gray-600'
             }`}
             fill={isWishlisted ? 'currentColor' : 'none'}
             stroke="currentColor"
@@ -100,25 +110,47 @@ export default function ProductCard({ product }) {
           </svg>
         </motion.button>
 
+        {/* Fabric & Weave Tag */}
+        {(product.fabric || product.weave) && (
+          <div className="absolute top-4 left-4 z-20">
+            <div className="bg-maroon-600/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+              {product.fabric}
+              {product.weave && ` • ${product.weave}`}
+            </div>
+          </div>
+        )}
+
+        {/* Handloom Badge for Banarasi */}
+        {product.category === 'Banarasi' && (
+          <div className="absolute top-16 left-4 z-20">
+            <div className="bg-gold-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg flex items-center space-x-1">
+              <span>✨</span>
+              <span>Handloom</span>
+            </div>
+          </div>
+        )}
+
         {/* Quick View Overlay */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="absolute inset-0 bg-black/20 backdrop-blur-sm flex items-center justify-center z-10"
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent flex items-center justify-center z-10"
         >
-          <motion.button
-            initial={{ y: 10, opacity: 0 }}
-            animate={{
-              y: isHovered ? 0 : 10,
-              opacity: isHovered ? 1 : 0,
-            }}
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-            className="bg-white text-gray-800 px-6 py-2.5 rounded-full font-semibold shadow-lg hover:bg-gold-400 hover:text-white transition-colors duration-200"
-          >
-            Quick View
-          </motion.button>
+          <Link href={`/products/${product.id}`}>
+            <motion.button
+              initial={{ y: 10, opacity: 0 }}
+              animate={{
+                y: isHovered ? 0 : 10,
+                opacity: isHovered ? 1 : 0,
+              }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white text-maroon-700 px-8 py-3 rounded-full font-semibold shadow-elegant hover:bg-maroon-50 transition-colors duration-200"
+            >
+              Quick View
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
 
@@ -163,9 +195,9 @@ export default function ProductCard({ product }) {
         <div className="flex space-x-2">
           <motion.button
             onClick={() => addToCart(product)}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="flex-1 bg-gradient-to-r from-gold-400 to-gold-500 text-white py-2.5 rounded-lg font-medium shadow-soft hover:shadow-elegant transition-all duration-200"
+            className="flex-1 bg-gradient-to-r from-maroon-600 to-royal-600 text-white py-3 rounded-lg font-semibold shadow-soft hover:shadow-elegant transition-all duration-200"
           >
             Add to Cart
           </motion.button>
